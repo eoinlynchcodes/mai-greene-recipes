@@ -26,12 +26,12 @@ const recipeList = [
         title: "Coffee Sponge Sandwich",
         ingredients: [
             "3 eggs",
-            "5 ozs sugar",
-            "5 ozs flour",
+            "3 ozs sugar",
+            "3 ozs flour",
             "1 level teaspoon baking powder",
             "1 dessertspoon coffee"
         ],
-        method: "Separate whites of eggs, beat stiff. Then beat in yolks, sugar and coffee. Last mix in sifted flour and baking powder. Gently fold in stiff egg whites. Bake in 2 x 8 sandwich tins."
+        method: "Separate whites of eggs, beat until stiff. Then beat in yolks, sugar and coffee. Last mix in sifted flour and baking powder. Gently fold in stiff egg whites. Bake in 2 x 8 sandwich tins."
     },
     {
         id: 4,
@@ -144,19 +144,21 @@ const recipeList = [
 function displayRecipes() {
     const recipeSection = document.getElementById('recipe-list');
     if (!recipeSection) return;
+    recipeList.sort((a, b) => a.title.localeCompare(b.title));
 
     recipeList.forEach(recipe => {
         const recipeElement = document.createElement('div');
         recipeElement.className = 'recipe';
 
         recipeElement.innerHTML = `
-            <h2>${recipe.name}</h2>
+            <h2>${recipe.title}</h2>
             <h3>Ingredients:</h3>
             <ul>
                 ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
             </ul>
+            ${recipe.instructions ? `
             <h3>Instructions:</h3>
-            <p>${recipe.instructions}</p>
+            <p>${recipe.instructions}</p>` : ''}
         `;
 
         recipeSection.appendChild(recipeElement);
